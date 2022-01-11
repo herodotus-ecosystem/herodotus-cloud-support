@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor
+        xsi:schemaLocation="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0 http://maven.apache.org/xsd/archetype-descriptor-1.1.0.xsd"
+        xmlns="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        name="herodotus-visual-archetype">
+    <requiredProperties>
+        <requiredProperty key="name">
+            <defaultValue>demo</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="groupId">
+            <defaultValue>cn.herodotus</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="version">
+            <defaultValue>2.6.2.80</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="artifactId">
+            <defaultValue>demo</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="port">
+            <defaultValue>8888</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="package">
+            <defaultValue>${groupId}.${name}</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="gitignore">
+            <defaultValue>.gitignore</defaultValue>
+        </requiredProperty>
+    </requiredProperties>
+    <fileSets>
+        <fileSet filtered="true" packaged="true" encoding="UTF-8">
+            <directory>src/main/java</directory>
+            <includes>
+                <include>**/*.java</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>src/main/resources</directory>
+            <includes>
+                <include>**/*.properties</include>
+                <include>**/*.xml</include>
+                <include>**/*.yml</include>
+                <include>**/*.yaml</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory></directory>
+            <includes>
+                <include>__gitignore__</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</archetype-descriptor>
