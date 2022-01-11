@@ -1,0 +1,19 @@
+version: "3"
+services:
+  sentinel:
+    image: herodotus/sentinel-dashboard:1.8.3
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sentinel-dashboard
+    environment:
+      SENTINEL_ADMIN_USERNAME: herodotus
+      SENTINEL_ADMIN_PASSWORD: herodotus
+    #      INFLUXDB_URL: http://192.168.101.10:8086
+    #      INFLUXDB_USERNAME: herodotus
+    #      INFLUXDB_PASSWORD: herodotus
+    #      INFLUXDB_DATABASE: sentinel
+    #      NACOS_SERVER_ADDRESS: 192.168.101.10:8848
+    #      NACOS_CONFIG_DATA_ID_SUFFIX: -flow-rules-test
+    ports:
+      - "8858:8858"
