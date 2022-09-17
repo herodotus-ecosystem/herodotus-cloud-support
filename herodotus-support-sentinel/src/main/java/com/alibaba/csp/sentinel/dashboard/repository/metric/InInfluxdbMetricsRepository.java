@@ -24,7 +24,7 @@
 
 package com.alibaba.csp.sentinel.dashboard.repository.metric;
 
-import cn.herodotus.integration.influxdb.annotation.ConditionalOnInfluxdbEnabled;
+import cn.herodotus.engine.nosql.influxdb.annotation.ConditionalOnInfluxdbEnabled;
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.MetricEntity;
 import com.alibaba.csp.sentinel.util.StringUtil;
 import org.apache.commons.collections4.CollectionUtils;

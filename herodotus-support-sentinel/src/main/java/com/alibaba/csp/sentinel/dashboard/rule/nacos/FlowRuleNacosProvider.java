@@ -24,9 +24,9 @@
 
 package com.alibaba.csp.sentinel.dashboard.rule.nacos;
 
-import cn.herodotus.integration.nacos.annotation.ConditionalOnNacosEnabled;
-import cn.herodotus.integration.nacos.properties.NacosProperties;
-import cn.herodotus.integration.nacos.service.NacosConfigService;
+import cn.herodotus.rocket.nacos.accelerator.annotation.ConditionalOnNacosEnabled;
+import cn.herodotus.rocket.nacos.accelerator.properties.NacosProperties;
+import cn.herodotus.rocket.nacos.accelerator.service.NacosConfigService;
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.FlowRuleEntity;
 import com.alibaba.csp.sentinel.dashboard.rule.DynamicRuleProvider;
 import com.alibaba.csp.sentinel.datasource.Converter;
