@@ -7,16 +7,16 @@
     <parent>
         <groupId>cn.herodotus.support</groupId>
         <artifactId>dependencies</artifactId>
-        <version>2.7.5.1</version>
+        <version>3.0.0.Beta1</version>
         <relativePath>dependencies/pom.xml</relativePath>
     </parent>
 
     <artifactId>herodotus-cloud-support</artifactId>
     <packaging>pom</packaging>
-    <version>2.7.5.1</version>
+    <version>3.0.0.Beta1</version>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <resource.delimiter>@</resource.delimiter>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
