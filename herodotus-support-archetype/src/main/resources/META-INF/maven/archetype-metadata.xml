@@ -12,7 +12,7 @@
             <defaultValue>cn.herodotus</defaultValue>
         </requiredProperty>
         <requiredProperty key="version">
-            <defaultValue>2.7.8.1</defaultValue>
+            <defaultValue>2.7.9.1</defaultValue>
         </requiredProperty>
         <requiredProperty key="artifactId">
             <defaultValue>demo</defaultValue>
