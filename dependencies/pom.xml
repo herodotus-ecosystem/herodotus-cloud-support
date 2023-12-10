@@ -5,15 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>cn.herodotus.rocket</groupId>
+        <groupId>cn.herodotus.professional</groupId>
         <artifactId>dependencies</artifactId>
-        <version>3.0.0.Beta1</version>
+        <version>3.1.6.1</version>
         <relativePath/>
     </parent>
 
     <groupId>cn.herodotus.support</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.0.0.Beta1</version>
+    <version>3.1.6.1</version>
     <packaging>pom</packaging>
 
     <properties>

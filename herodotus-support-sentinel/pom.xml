@@ -7,12 +7,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.14</version>
+        <version>2.5.15</version>
         <relativePath/>
     </parent>
 
     <artifactId>herodotus-support-sentinel</artifactId>
-    <version>3.0.0.Beta1</version>
+    <version>3.1.6.1</version>
     <packaging>jar</packaging>
 
     <description>拓展的Sentinel Dashboard 以支持流量数据持久化和Sentinel配置的反向存储 </description>
@@ -20,10 +20,10 @@
     <properties>
         <commons-lang.version>2.6</commons-lang.version>
         <curator.version>4.0.1</curator.version>
-        <sentinel.version>1.8.5</sentinel.version>
+        <sentinel.version>1.8.6</sentinel.version>
         <!-- Sentinel Dashboard 1.8.5 目前只能在 Spring Boot 2.5.X运行，高于这个版本会出现无法登陆问题-->
         <sentinel-spring-boot.version>2.5.14</sentinel-spring-boot.version>
-        <herodotus-cloud.version>3.0.0.Beta1</herodotus-cloud.version>
+        <herodotus-cloud.version>3.1.6.1</herodotus-cloud.version>
 
     </properties>
 
