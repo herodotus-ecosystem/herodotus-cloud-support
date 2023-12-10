@@ -15,19 +15,17 @@
  */
 package com.alibaba.csp.sentinel.dashboard;
 
-import cn.herodotus.engine.nosql.influxdb.annotation.EnableHerodotusInfluxdb;
 import com.alibaba.csp.sentinel.init.InitExecutor;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.influx.InfluxDbAutoConfiguration;
 
 /**
  * Sentinel dashboard application.
  *
  * @author Carpenter Lee
  */
-@EnableHerodotusInfluxdb
-@SpringBootApplication(exclude = InfluxDbAutoConfiguration.class)
+@SpringBootApplication
 public class DashboardApplication {
 
     public static void main(String[] args) {
