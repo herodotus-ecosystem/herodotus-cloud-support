@@ -55,15 +55,15 @@ public class FlowControllerV2 {
 
     private final Logger logger = LoggerFactory.getLogger(FlowControllerV2.class);
 
-    @Autowired
-    private InMemoryRuleRepositoryAdapter<FlowRuleEntity> repository;
+    private final InMemoryRuleRepositoryAdapter<FlowRuleEntity> repository;
+    private final DynamicRuleProvider<List<FlowRuleEntity>> ruleProvider;
+    private final DynamicRulePublisher<List<FlowRuleEntity>> rulePublisher;
 
-    @Autowired
-    @Qualifier("flowRuleDefaultProvider")
-    private DynamicRuleProvider<List<FlowRuleEntity>> ruleProvider;
-    @Autowired
-    @Qualifier("flowRuleDefaultPublisher")
-    private DynamicRulePublisher<List<FlowRuleEntity>> rulePublisher;
+    public FlowControllerV2(InMemoryRuleRepositoryAdapter<FlowRuleEntity> repository, DynamicRuleProvider<List<FlowRuleEntity>> ruleProvider, DynamicRulePublisher<List<FlowRuleEntity>> rulePublisher) {
+        this.repository = repository;
+        this.ruleProvider = ruleProvider;
+        this.rulePublisher = rulePublisher;
+    }
 
     @GetMapping("/rules")
     @AuthAction(PrivilegeType.READ_RULE)

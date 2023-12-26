@@ -15,6 +15,8 @@
  */
 package com.alibaba.csp.sentinel.dashboard;
 
+import cn.herodotus.professional.api.nacos.annotation.EnableHerodotusNacosRestApi;
+import cn.herodotus.professional.tsdb.influxdb.annotation.EnableHerodotusInfluxdb;
 import com.alibaba.csp.sentinel.init.InitExecutor;
 
 import org.springframework.boot.SpringApplication;
@@ -26,6 +28,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Carpenter Lee
  */
 @SpringBootApplication
+@EnableHerodotusInfluxdb
+@EnableHerodotusNacosRestApi
 public class DashboardApplication {
 
     public static void main(String[] args) {

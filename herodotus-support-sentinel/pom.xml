@@ -12,7 +12,7 @@
     </parent>
 
     <artifactId>herodotus-support-sentinel</artifactId>
-    <version>3.1.6.1</version>
+    <version>3.1.7.1</version>
     <packaging>jar</packaging>
 
     <description>拓展的Sentinel Dashboard 以支持流量数据持久化和Sentinel配置的反向存储 </description>
@@ -21,24 +21,23 @@
         <commons-lang.version>2.6</commons-lang.version>
         <curator.version>4.0.1</curator.version>
         <sentinel.version>1.8.6</sentinel.version>
-        <!-- Sentinel Dashboard 1.8.5 目前只能在 Spring Boot 2.5.X运行，高于这个版本会出现无法登陆问题-->
+        <!-- Sentinel Dashboard 1.8.6 目前只能在 Spring Boot 2.5.X运行，高于这个版本会出现无法登陆问题-->
         <sentinel-spring-boot.version>2.5.15</sentinel-spring-boot.version>
-        <herodotus-cloud.version>3.1.6.1</herodotus-cloud.version>
+        <herodotus-cloud.version>3.1.7.1</herodotus-cloud.version>
 
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>cn.herodotus.engine</groupId>
-            <artifactId>nosql-sdk-influxdb</artifactId>
+            <groupId>cn.herodotus.professional</groupId>
+            <artifactId>tsdb-sdk-influxdb</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>cn.herodotus.rocket</groupId>
-            <artifactId>nacos-spring-boot-starter</artifactId>
+            <groupId>cn.herodotus.professional</groupId>
+            <artifactId>api-sdk-nacos</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-core</artifactId>
@@ -94,7 +93,7 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.13</version>
+            <version>4.5.14</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>

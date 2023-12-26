@@ -24,13 +24,15 @@
 
 package com.alibaba.csp.sentinel.dashboard.rule.nacos;
 
-import cn.herodotus.rocket.nacos.accelerator.annotation.ConditionalOnNacosEnabled;
-import cn.herodotus.rocket.nacos.accelerator.properties.NacosProperties;
-import cn.herodotus.rocket.nacos.accelerator.service.NacosConfigService;
+import cn.herodotus.engine.assistant.core.domain.Result;
+import cn.herodotus.professional.api.nacos.annotation.ConditionalOnNacosConfigured;
+import cn.herodotus.professional.api.nacos.domain.request.ConfigRequest;
+import cn.herodotus.professional.api.nacos.service.NacosConfigsService;
+import com.alibaba.csp.sentinel.dashboard.config.SentinelProperties;
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.FlowRuleEntity;
 import com.alibaba.csp.sentinel.dashboard.rule.DynamicRuleProvider;
 import com.alibaba.csp.sentinel.datasource.Converter;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
@@ -46,23 +48,31 @@ import java.util.List;
  */
 @Component
 @Primary
-@ConditionalOnNacosEnabled
+@ConditionalOnNacosConfigured
 public class FlowRuleNacosProvider implements DynamicRuleProvider<List<FlowRuleEntity>> {
 
     @Autowired
-    private NacosConfigService nacosConfigService;
+    private NacosConfigsService nacosConfigService;
     @Autowired
-    private NacosProperties nacosProperties;
+    private SentinelProperties sentinelProperties;
     @Autowired
     private Converter<String, List<FlowRuleEntity>> converter;
 
     @Override
     public List<FlowRuleEntity> getRules(String appName) throws Exception {
-        String rules = nacosConfigService.getConfig(nacosProperties.getSentinel().getNamespace(), appName + nacosProperties.getSentinel().getDataIdSuffix(), nacosProperties.getSentinel().getGroup());
 
-        if (StringUtils.isBlank(rules)) {
+        ConfigRequest request = new ConfigRequest();
+        request.setNamespaceId(sentinelProperties.getNamespace());
+        request.setDataId(appName + sentinelProperties.getDataIdSuffix());
+        request.setGroup(sentinelProperties.getGroup());
+
+        Result<String> response =  nacosConfigService.find(request);
+
+        if (ObjectUtils.isNotEmpty(response) && response.getCode() == 0) {
+            String rules = response.getData();
+            return converter.convert(rules);
+        } else {
             return new ArrayList<>();
         }
-        return converter.convert(rules);
     }
 }

@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.servlet.http.HttpServletRequest;
 
 @Configuration
-@EnableConfigurationProperties(AuthProperties.class)
+@EnableConfigurationProperties({AuthProperties.class, SentinelProperties.class})
 public class AuthConfiguration {
 
     private final AuthProperties authProperties;

@@ -24,15 +24,19 @@
 
 package com.alibaba.csp.sentinel.dashboard.rule.nacos;
 
-import cn.herodotus.rocket.nacos.accelerator.annotation.ConditionalOnNacosEnabled;
-import cn.herodotus.rocket.nacos.accelerator.properties.NacosProperties;
-import cn.herodotus.rocket.nacos.accelerator.service.NacosConfigService;
+import cn.herodotus.engine.assistant.core.domain.Result;
+import cn.herodotus.professional.api.nacos.annotation.ConditionalOnNacosConfigured;
+import cn.herodotus.professional.api.nacos.domain.request.ConfigPublishRequest;
+import cn.herodotus.professional.api.nacos.domain.request.ConfigRequest;
+import cn.herodotus.professional.api.nacos.service.NacosConfigsService;
+import com.alibaba.csp.sentinel.dashboard.config.SentinelProperties;
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.FlowRuleEntity;
 import com.alibaba.csp.sentinel.dashboard.rule.DynamicRulePublisher;
 import com.alibaba.csp.sentinel.datasource.Converter;
 import com.alibaba.csp.sentinel.util.AssertUtil;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
@@ -46,22 +50,55 @@ import java.util.List;
  */
 @Component
 @Primary
-@ConditionalOnNacosEnabled
+@ConditionalOnNacosConfigured
 public class FlowRuleNacosPublisher implements DynamicRulePublisher<List<FlowRuleEntity>> {
 
-    @Autowired
-    private NacosConfigService nacosConfigService;
-    @Autowired
-    private NacosProperties nacosProperties;
-    @Autowired
-    private Converter<List<FlowRuleEntity>, String> converter;
+    private static final Logger log = LoggerFactory.getLogger(FlowRuleNacosPublisher.class);
+
+    private final NacosConfigsService nacosConfigsService;
+    private final SentinelProperties sentinelProperties;
+    private final Converter<List<FlowRuleEntity>, String> converter;
+
+    public FlowRuleNacosPublisher(NacosConfigsService nacosConfigsService, SentinelProperties sentinelProperties, Converter<List<FlowRuleEntity>, String> converter) {
+        this.nacosConfigsService = nacosConfigsService;
+        this.sentinelProperties = sentinelProperties;
+        this.converter = converter;
+    }
 
     @Override
     public void publish(String app, List<FlowRuleEntity> rules) throws Exception {
         AssertUtil.notEmpty(app, "app name cannot be empty");
+
+        boolean status;
+        String action;
+
         if (CollectionUtils.isEmpty(rules)) {
-            return;
+
+            ConfigRequest request = new ConfigRequest();
+            request.setNamespaceId(sentinelProperties.getNamespace());
+            request.setDataId(app + sentinelProperties.getDataIdSuffix());
+            request.setGroup(sentinelProperties.getGroup());
+
+            Result<Boolean> result = nacosConfigsService.delete(request);
+            status = result.getData();
+            action = "Delete";
+        } else {
+            ConfigPublishRequest request = new ConfigPublishRequest();
+            request.setNamespaceId(sentinelProperties.getNamespace());
+            request.setDataId(app + sentinelProperties.getDataIdSuffix());
+            request.setGroup(sentinelProperties.getGroup());
+            request.setContent(converter.convert(rules));
+            request.setType(sentinelProperties.getType().getType());
+
+            Result<Boolean> result = nacosConfigsService.publish(request);
+            status = result.getData();
+            action = "Publish";
         }
-        nacosConfigService.publishConfig(nacosProperties.getSentinel().getNamespace(), app + nacosProperties.getSentinel().getDataIdSuffix(), nacosProperties.getSentinel().getGroup(), converter.convert(rules), nacosProperties.getSentinel().getType().getType());
+
+        if (status) {
+            log.debug("[Herodotus] |- [{}] sentinel flow rule config to nacos success.", action);
+        } else {
+            log.error("[Herodotus] |- [{}] sentinel flow rule config to nacos failed.", action);
+        }
     }
 }
