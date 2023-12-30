@@ -7,13 +7,13 @@
     <parent>
         <groupId>cn.herodotus.support</groupId>
         <artifactId>dependencies</artifactId>
-        <version>3.1.7.1</version>
+        <version>3.1.7.2</version>
         <relativePath>dependencies/pom.xml</relativePath>
     </parent>
 
     <artifactId>herodotus-cloud-support</artifactId>
     <packaging>pom</packaging>
-    <version>3.1.7.1</version>
+    <version>3.1.7.2</version>
 
     <properties>
         <java.version>17</java.version>

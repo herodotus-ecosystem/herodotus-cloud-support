@@ -7,17 +7,17 @@
     <parent>
         <groupId>cn.herodotus.professional</groupId>
         <artifactId>dependencies</artifactId>
-        <version>3.1.7.1</version>
+        <version>3.1.7.2</version>
         <relativePath/>
     </parent>
 
     <groupId>cn.herodotus.support</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.1.7.1</version>
+    <version>3.1.7.2</version>
     <packaging>pom</packaging>
 
     <properties>
-        <sentinel.version>1.8.6</sentinel.version>
+        <sentinel.version>1.8.7</sentinel.version>
         <commons-lang.version>2.6</commons-lang.version>
         <curator.version>4.0.1</curator.version>
         <apollo-openapi.version>1.2.0</apollo-openapi.version>

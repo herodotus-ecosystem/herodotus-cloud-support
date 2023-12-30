@@ -51,12 +51,15 @@ import java.util.List;
 @ConditionalOnNacosConfigured
 public class FlowRuleNacosProvider implements DynamicRuleProvider<List<FlowRuleEntity>> {
 
-    @Autowired
-    private NacosConfigsService nacosConfigService;
-    @Autowired
-    private SentinelProperties sentinelProperties;
-    @Autowired
-    private Converter<String, List<FlowRuleEntity>> converter;
+    private final NacosConfigsService nacosConfigService;
+    private final SentinelProperties sentinelProperties;
+    private final Converter<String, List<FlowRuleEntity>> converter;
+
+    public FlowRuleNacosProvider(NacosConfigsService nacosConfigService, SentinelProperties sentinelProperties, Converter<String, List<FlowRuleEntity>> converter) {
+        this.nacosConfigService = nacosConfigService;
+        this.sentinelProperties = sentinelProperties;
+        this.converter = converter;
+    }
 
     @Override
     public List<FlowRuleEntity> getRules(String appName) throws Exception {
