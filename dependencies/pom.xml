@@ -7,13 +7,13 @@
     <parent>
         <groupId>cn.herodotus.professional</groupId>
         <artifactId>dependencies</artifactId>
-        <version>3.1.7.2</version>
+        <version>3.1.7.4</version>
         <relativePath/>
     </parent>
 
     <groupId>cn.herodotus.support</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.1.7.2</version>
+    <version>3.1.7.4</version>
     <packaging>pom</packaging>
 
     <properties>
