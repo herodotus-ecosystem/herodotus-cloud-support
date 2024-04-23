@@ -12,7 +12,7 @@
     </parent>
 
     <artifactId>herodotus-support-sentinel</artifactId>
-    <version>3.1.7.4</version>
+    <version>3.1.11.0</version>
     <packaging>jar</packaging>
 
     <description>拓展的Sentinel Dashboard 以支持流量数据持久化和Sentinel配置的反向存储 </description>
@@ -29,7 +29,10 @@
         <system-rules.version>1.16.1</system-rules.version>
         <!-- Sentinel Dashboard 1.8.7 目前只能在 Spring Boot 2.5.X运行，高于这个版本会出现无法登陆问题-->
         <sentinel-spring-boot.version>2.5.15</sentinel-spring-boot.version>
-        <herodotus-cloud.version>3.1.7.4</herodotus-cloud.version>
+        <herodotus-cloud.version>3.1.11.0</herodotus-cloud.version>
+
+        <docker.build.directory>../build/dist</docker.build.directory>
+        <docker.resource.name>sentinel-dashboard.jar</docker.resource.name>
 
     </properties>
 
@@ -177,6 +180,42 @@
                         <useDefaultDelimiters>false</useDefaultDelimiters>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>${maven-antrun-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>delete-jar-file</id>
+                            <phase>pre-clean</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                            <configuration>
+                                <target>
+                                    <delete file="${docker.build.directory}/${docker.resource.name}"/>
+                                </target>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>prepare-docker-resource</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                            <configuration>
+                                <target>
+                                    <!--jar包保存位置 -->
+                                    <copy todir="${docker.build.directory}">
+                                        <fileset dir="${project.basedir}/target">
+                                            <include name="${docker.resource.name}"/>
+                                        </fileset>
+                                    </copy>
+                                </target>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -194,6 +233,10 @@
                 <configuration>
                     <skipTests>true</skipTests>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
             </plugin>
 
             <plugin>
