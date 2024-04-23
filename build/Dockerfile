@@ -1,5 +1,5 @@
 ### 基础镜像，使用alpine操作系统，openjkd使用
-FROM bellsoft/liberica-openjdk-debian:17.0.9-11
+FROM bellsoft/liberica-openjdk-debian:17.0.11-10
 
 # 作者
 MAINTAINER herodotus <herodotus@aliyun.com>
@@ -31,7 +31,7 @@ ENV NACOS_AUTH_ENABLED=false
 ENV NACOS_TOKEN_TTL=18000
 
 #拷贝本地文件到镜像中
-COPY ./target/sentinel-dashboard.jar /data/sentinel-dashboard/sentinel-dashboard.jar
+COPY ./dist/sentinel-dashboard.jar /data/sentinel-dashboard/sentinel-dashboard.jar
 
 #指定容器启动时要执行的命令，但如果存在CMD指令，CMD中的参数会被附加到ENTRYPOINT指令的后面
 ENTRYPOINT java -Dserver.port=8858 -Dcsp.sentinel.dashboard.server=localhost:8858 -Dauth.username=${SENTINEL_ADMIN_USERNAME} -Dauth.password=${SENTINEL_ADMIN_PASSWORD} -Dherodotus.tsdb.influxdb.url=${INFLUXDB_URL} -Dherodotus.tsdb.influxdb.database=${INFLUXDB_DATABASE} -Dherodotus.tsdb.influxdb.password=${INFLUXDB_PASSWORD} -Dherodotus.tsdb.influxdb.username=${INFLUXDB_USERNAME} -Dspring.cloud.nacos.config.server-addr=${NACOS_SERVER_ADDRESS} -Dherodotus.api.nacos.endpoint=${NACOS_SERVER_ADDRESS} -Dherodotus.api.nacos.username=${NACOS_ADMIN_USERNAME} -Dherodotus.api.nacos.password=${NACOS_ADMIN_PASSWORD} -Dherodotus.api.nacos.auth-enabled=${NACOS_AUTH_ENABLED} -Dherodotus.api.nacos.token-ttl=${NACOS_TOKEN_TTL} -Dherodotus.nacos.sentinel.namespace=${NACOS_CONFIG_NAMESPACE} -Dherodotus.nacos.sentinel.data-id-suffix=${NACOS_CONFIG_DATA_ID_SUFFIX} -Dherodotus.nacos.sentinel.group=${NACOS_CONFIG_GROUP} -Dherodotus.nacos.sentinel.type=${NACOS_CONFIG_TYPE} ${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -jar -Dfile.encoding=utf-8 sentinel-dashboard.jar

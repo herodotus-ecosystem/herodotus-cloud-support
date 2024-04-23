@@ -4,7 +4,7 @@ services:
     image: herodotus/sentinel-dashboard:1.8.7-1
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ../build/Dockerfile
     container_name: sentinel-dashboard
     environment:
       SENTINEL_ADMIN_USERNAME: herodotus
