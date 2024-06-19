@@ -198,7 +198,7 @@
                         </execution>
                         <execution>
                             <id>prepare-docker-resource</id>
-                            <phase>package</phase>
+                            <phase>install</phase>
                             <goals>
                                 <goal>run</goal>
                             </goals>
@@ -241,6 +241,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${project.parent.version}</version>
                 <configuration>
                     <fork>true</fork>
                     <mainClass>com.alibaba.csp.sentinel.dashboard.DashboardApplication</mainClass>
